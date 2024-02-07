@@ -75,4 +75,5 @@ debugging:
     type:
       _target_: hydra.utils.get_class
       path: ray.tune.logger.TBXLogger
-    logdir: ${hydra:run.dir}
+    logdir: ${cli.data_dir}/simharness/logs
+  
