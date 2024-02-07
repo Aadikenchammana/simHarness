@@ -155,7 +155,7 @@ def train(algo: Algorithm, cfg: DictConfig) -> None:
         LOGGER.info(f"{pretty_print(result)}\n")
 
         if i % cfg.checkpoint.checkpoint_frequency == 0:
-            ckpt_path = algo.save()
+            ckpt_path = "PPO NOT SERIALIZABLE" #algo.save()
             log_str = f"A checkpoint has been created inside directory: {ckpt_path}.\n"
             LOGGER.info(log_str)
 

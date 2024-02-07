@@ -1,1 +1,1 @@
-{"analytics_dir": "train_analytics//02.07.2024_10:54:58", "currentIteration": 0}
+{"analytics_dir": "train_analytics//02.07.2024_11:06:32", "currentIteration": 3}

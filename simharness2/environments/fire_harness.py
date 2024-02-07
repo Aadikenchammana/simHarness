@@ -25,6 +25,8 @@ from simfire.utils.config import Config
 from simharness2.agents.agent import ReactiveAgent
 from simharness2.environments.harness import Harness
 
+import json
+
 logger = logging.getLogger(__name__)
 
 AnyFireSimulation = TypeVar("AnyFireSimulation", bound=FireSimulation)
@@ -90,6 +92,12 @@ class FireHarness(Harness[AnyFireSimulation]):
         self._agent_ids = {f"agent_{i}" for i in self._sim_agent_ids}
         self.default_agent_id = f"agent_{self._agent_id_start}"
 
+        #loading logging information
+        with open("info.txt","r") as f:
+            info = json.loads(f.read())
+        self.current_train_iteration = info["currentIteration"]
+        self.analytics_dir = info["analytics_dir"]
+
         # Spawn the agent (s) that will interact with the simulation
         logger.debug(f"Creating {self.num_agents} agent (s)...")
         input_kwargs = {}
@@ -149,6 +157,10 @@ class FireHarness(Harness[AnyFireSimulation]):
         self, action: np.ndarray
     ) -> tuple[np.ndarray, SupportsFloat, bool, bool, dict[str, Any]]:
         """Run one timestep of the environment's dynamics."""
+
+        with open(self.analytics_dir+"//customLog.txt","a") as f:
+            f.write("\nACTIONS PRESCRIBED, "+str(action))
+
         self._do_one_agent_step(action=action)
 
         if self.harness_analytics:
@@ -184,8 +196,12 @@ class FireHarness(Harness[AnyFireSimulation]):
 
         # FIXME account for below updates in the reward_cls.calculate_reward() method
         # "End of episode" reward
+        
+        with open(self.analytics_dir+"//customLog.txt","a") as f:
+            f.write("\REWARD, "+str(reward))
+
         if terminated:
-            reward += 10
+            reward += 0
 
         if self.harness_analytics:
             self.harness_analytics.update_after_one_harness_step(
@@ -257,6 +273,10 @@ class FireHarness(Harness[AnyFireSimulation]):
         """Interact with the environment by performing the provided interaction."""
         sim_interaction = self.harness_to_sim[agent.latest_interaction]
         mitigation_update = (agent.col, agent.row, sim_interaction)
+
+        with open(self.analytics_dir+"//customLog.txt","a") as f:
+            f.write("\n MITITGATION PLACED, "+str(agent.col)+","+str(agent.row)+","+str(sim_interaction))
+
         self.sim.update_mitigation([mitigation_update])
         agent.mitigation_placed = True
 
@@ -268,6 +288,10 @@ class FireHarness(Harness[AnyFireSimulation]):
         # Update the agent's position based on the provided movement.
         movement_str = self.movements[agent.latest_movement]
         # First, check that the movement string is valid.
+
+        with open(self.analytics_dir+"//customLog.txt","a") as f:
+            f.write("\n AGENT MOVED, "+movement_str+","+str(agent.row)+","+str(agent.col)+","+str(row_boundary))
+
         if movement_str not in ["up", "down", "left", "right"]:
             raise ValueError(f"Invalid movement string provided: {movement_str}.")
         # Then, ensure that the agent will not move off the map.
