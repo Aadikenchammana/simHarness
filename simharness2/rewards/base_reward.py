@@ -5,7 +5,7 @@ ReactiveHarnessAnalytics object.
 """
 from abc import ABC, abstractmethod
 import logging
-
+import json
 from simharness2.analytics.harness_analytics import ReactiveHarnessAnalytics
 
 logger = logging.getLogger(__name__)
@@ -47,10 +47,16 @@ class SimpleReward(BaseReward):
         """TODO Add constructor docstring."""
         super().__init__(harness_analytics)
 
+        with open("info.txt","r") as f:
+            info = json.loads(f.read())
+        self.analytics_dir = info["analytics_dir"]
+
     def get_reward(self, timestep: int, sim_run: bool) -> float:
         """TODO Add function docstring."""
         if not sim_run:
             # No intermediate reward calculation used currently, so 0.0 is returned.
+            with open(self.analytics_dir+"//customLog.txt", "a") as f:
+                f.write("\n NO REwARDS CALC")
             return self.get_timestep_intermediate_reward(timestep)
 
         burning = self.harness_analytics.sim_analytics.data.burning
@@ -60,9 +66,14 @@ class SimpleReward(BaseReward):
         agent_pos = self.harness_analytics.sim_analytics.agent_analytics.agentPosDct
         agent_pos = agent_pos[list(agent_pos.keys())[0]]
 
-        reward = -((burning+burned) / self._sim_area)
-        reward = reward*10
+        #reward = -((burning+burned) / self._sim_area)
+        reward = -(50 - agent_pos[0])
 
+        reward = reward*100
+
+        with open(self.analytics_dir+"//customLog.txt", "a") as f:
+            f.write("\n SOURCE REWARDS AND AGENT POSITION, "+str(reward)+","+str(agent_pos[0])+","+str(agent_pos[1]))
+        
         # update self.latest_reward and then return the reward
         self.latest_reward = reward
         return reward
