@@ -54,7 +54,14 @@ class SimpleReward(BaseReward):
             return self.get_timestep_intermediate_reward(timestep)
 
         burning = self.harness_analytics.sim_analytics.data.burning
-        reward = -(burning / self._sim_area)
+        burned = self.harness_analytics.sim_analytics.data.burned
+        mitigated = self.harness_analytics.sim_analytics.data.mitigated
+
+        agent_pos = self.harness_analytics.sim_analytics.agent_analytics.agentPosDct
+        agent_pos = agent_pos[list(agent_pos.keys())[0]]
+
+        reward = -((burning+burned) / self._sim_area)
+        reward = reward*10
 
         # update self.latest_reward and then return the reward
         self.latest_reward = reward

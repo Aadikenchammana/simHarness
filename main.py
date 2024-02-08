@@ -151,6 +151,11 @@ def train(algo: Algorithm, cfg: DictConfig) -> None:
         with open(analytics_dir+"//customLog.txt","a") as f:
             f.write("\nNEW ITERATION,"+str(i))
 
+        print("------------------------------------")
+        print("------------------------------------")
+        print(algo, type(algo))
+        print("------------------------------------")
+        print("------------------------------------")
         result = algo.train()
         LOGGER.info(f"{pretty_print(result)}\n")
 
@@ -310,13 +315,28 @@ def main(cfg: DictConfig) -> None:
     LOGGER.info(f"Configuration files for this job can be found at {outdir}.")
 
     # Build the algorithm config.
-
+    with open(analytics_dir+"//customLog.txt","a") as f:
+        f.write("\n PRE BUILD ALGO CONFIG")
     cfg.exploration.exploration_config = {}
 
     algo_cfg = _build_algo_cfg(cfg)
 
+
+    print("------------------------------------")
+    print("------------------------------------")
+    print(algo_cfg, type(algo_cfg))
+    print("------------------------------------")
+    print("------------------------------------")
+
+    with open(analytics_dir+"//customLog.txt","a") as f:
+        f.write("\n POST BUILD ALGO CONFIG")
+
     if cfg.cli.mode == "train":
         algo = algo_cfg.build()
+
+        with open(analytics_dir+"//customLog.txt","a") as f:
+            f.write("\n POST BUILD ALGO")
+
         if cfg.algo.checkpoint_path:
             ckpt_path = cfg.algo.checkpoint_path
             LOGGER.info(f"Creating an algorithm instance from {ckpt_path}.")

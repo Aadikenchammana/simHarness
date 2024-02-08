@@ -1,0 +1,28 @@
+2024-02-07 17:27:18,404	INFO main.py:315 -- Configuration files for this job can be found at data/simharness/experiments/2024-02-07_17-27-14/hydra_output.
+2024-02-07 17:27:18,430	INFO layers.py:81 -- Saving LandFire data to: /Users/subarnas/.simfire/landfire/2019/lf_120.52193_36.09493_120.47563370366066_36.04863370366067
+2024-02-07 17:27:18,701	INFO layers.py:81 -- Saving LandFire data to: /Users/subarnas/.simfire/landfire/2019/lf_120.52193_36.09493_120.47563370366066_36.04863370366067
+2024-02-07 17:27:18,786	INFO layers.py:81 -- Saving LandFire data to: /Users/subarnas/.simfire/landfire/2019/lf_120.52193_36.09493_120.47563370366066_36.04863370366067
+------------------------------------
+------------------------------------
+<ray.rllib.algorithms.ppo.ppo.PPOConfig object at 0x17ba700d0> <class 'ray.rllib.algorithms.ppo.ppo.PPOConfig'>
+------------------------------------
+------------------------------------
+[2m[36m(RolloutWorker pid=30440)[0m ---------------------------------------------------
+[2m[36m(RolloutWorker pid=30440)[0m ---------------------------------------------------
+[2m[36m(RolloutWorker pid=30440)[0m 2
+[2m[36m(RolloutWorker pid=30440)[0m ---------------------------------------------------
+[2m[36m(RolloutWorker pid=30440)[0m ---------------------------------------------------
+[2m[36m(RolloutWorker pid=30500)[0m ---------------------------------------------------[32m [repeated 32x across cluster][0m
+[2m[36m(RolloutWorker pid=30500)[0m 5[32m [repeated 8x across cluster][0m
+2024-02-07 17:27:51,178	INFO main.py:349 -- Training model on simharness2.environments.ReactiveHarness.
+2024-02-07 17:27:51,178	INFO main.py:145 -- Training iteration 0.
+------------------------------------
+------------------------------------
+PPO <class 'ray.rllib.algorithms.ppo.ppo.PPO'>
+------------------------------------
+------------------------------------
+[2m[36m(RolloutWorker pid=30440)[0m ---------------------------------------------------[32m [repeated 4x across cluster][0m
+[2m[36m(RolloutWorker pid=30440)[0m 11
+[2m[36m(RolloutWorker pid=30442)[0m 11
+[2m[36m(RolloutWorker pid=30445)[0m ---------------------------------------------------[32m [repeated 3468x across cluster][0m
+[2m[36m(RolloutWorker pid=30445)[0m 11[32m [repeated 868x across cluster][0m

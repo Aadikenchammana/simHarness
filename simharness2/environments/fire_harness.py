@@ -160,6 +160,11 @@ class FireHarness(Harness[AnyFireSimulation]):
 
         with open(self.analytics_dir+"//customLog.txt","a") as f:
             f.write("\nACTIONS PRESCRIBED, "+str(action))
+        print("---------------------------------------------------")
+        print("---------------------------------------------------")
+        print(action)
+        print("---------------------------------------------------")
+        print("---------------------------------------------------")
 
         self._do_one_agent_step(action=action)
 
@@ -275,7 +280,7 @@ class FireHarness(Harness[AnyFireSimulation]):
         mitigation_update = (agent.col, agent.row, sim_interaction)
 
         with open(self.analytics_dir+"//customLog.txt","a") as f:
-            f.write("\n MITITGATION PLACED, "+str(agent.col)+","+str(agent.row)+","+str(sim_interaction))
+            f.write("\n MITITGATION PLACED, "+str(agent.row)+","+str(agent.col)+","+str(sim_interaction))
 
         self.sim.update_mitigation([mitigation_update])
         agent.mitigation_placed = True

@@ -235,7 +235,7 @@ class ReactiveAgentAnalytics(AgentAnalytics):
         self._agent_ids = agent_ids
         # TODO: Cleaner to store all agents within a single `AgentData` class?
         self.data = {ag_id: AgentData(ag_id, save_history) for ag_id in self._agent_ids}
-
+        self.agentPosDct = {}
     def update(
         self,
         timestep: int,
@@ -255,6 +255,7 @@ class ReactiveAgentAnalytics(AgentAnalytics):
         #     self.num_movements_since_last_sim_step += 1
         for ag_id, agent in agents.items():
             agent_pos = (agent.row, agent.col)
+            self.agentPosDct[ag_id] = [agent.row, agent.col]
             # Prepare current timestep data.
             agent_timestep_dict = {
                 "timestep": timestep,
