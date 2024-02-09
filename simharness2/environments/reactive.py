@@ -261,6 +261,12 @@ class ReactiveHarness(RLHarness):  # noqa: D205,D212,D415
             save_path = os.path.join(savedir, fname)
             logger.info(f"Saving fire map to {save_path}...")
             np.save(save_path, self.sim.fire_map)
+        print("-===================================================")
+        print("-===================================================")
+        print("-===================================================")
+        print("-===================================================")
+        print(self.state)
+        quit()
 
         return self.state, reward, terminated, truncated, {}
 
